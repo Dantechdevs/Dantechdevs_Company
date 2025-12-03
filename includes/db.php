@@ -1,16 +1,13 @@
 <?php
-// ============================================
-// Dantechdevs IT Consultancy
-// Database Connection
-// ============================================
-
 $host = "localhost";
 $user = "root";
-$pass = "";
-$dbname = "dantechdevs_system";
+$pass = ""; // your MySQL password
+$db_name = "dantechdevs_system"; // <-- updated database name
 
-$conn = new mysqli($host, $user, $pass, $dbname);
+$db = new mysqli($host, $user, $pass, $db_name);
 
-if ($conn->connect_error) {
-    die("Database connection failed: " . $conn->connect_error);
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
 }
+
+$db->set_charset("utf8");

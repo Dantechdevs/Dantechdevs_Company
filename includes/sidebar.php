@@ -1,45 +1,89 @@
-<div class="sidebar">
-    <div class="brand">
-        <i class="bi bi-cpu-fill"></i> Dantechdevs
+<?php
+// sidebar.php
+$activePage = $activePage ?? '';
+?>
+
+<div class="sidebar-modern">
+
+    <div class="sidebar-menu">
+
+        <!-- DASHBOARD -->
+        <a href="index.php" class="menu-link <?= ($activePage == 'dashboard') ? 'active' : ''; ?>">
+            <i class="bi bi-grid-1x2-fill"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="portal.php" class="menu-link <?= ($activePage == 'portal') ? 'active' : ''; ?>">
+            <i class="bi bi-speedometer2"></i>
+            <span>My Portal</span>
+        </a>
+
+        <a href="users.php" class="menu-link <?= ($activePage == 'users') ? 'active' : ''; ?>">
+            <i class="bi bi-people-fill"></i>
+            <span>Users & Roles</span>
+        </a>
+
+        <!-- MODULES -->
+        <div class="menu-title">MODULES</div>
+
+        <a href="projects/project_list.php" class="menu-link <?= ($activePage == 'projects') ? 'active' : ''; ?>">
+            <i class="bi bi-kanban-fill"></i>
+            <span>Projects</span>
+        </a>
+
+        <a href="clients/client_list.php" class="menu-link <?= ($activePage == 'clients') ? 'active' : ''; ?>">
+            <i class="bi bi-person-badge-fill"></i>
+            <span>Clients</span>
+        </a>
+
+        <a href="tasks/task_list.php" class="menu-link <?= ($activePage == 'tasks') ? 'active' : ''; ?>">
+            <i class="bi bi-check2-square"></i>
+            <span>Tasks</span>
+        </a>
+
+        <a href="billing/invoices.php" class="menu-link <?= ($activePage == 'billing') ? 'active' : ''; ?>">
+            <i class="bi bi-receipt"></i>
+            <span>Accounting</span>
+        </a>
+
+        <a href="marketing.php" class="menu-link <?= ($activePage == 'marketing') ? 'active' : ''; ?>">
+            <i class="bi bi-megaphone-fill"></i>
+            <span>Marketing</span>
+        </a>
+
+        <a href="hr/" class="menu-link <?= ($activePage == 'hr') ? 'active' : ''; ?>">
+            <i class="bi bi-people"></i>
+            <span>Human Resources</span>
+        </a>
+
+        <a href="reports/" class="menu-link <?= ($activePage == 'reports') ? 'active' : ''; ?>">
+            <i class="bi bi-graph-up-arrow"></i>
+            <span>Reports</span>
+        </a>
+
+        <!-- SYSTEM -->
+        <div class="menu-title">SYSTEM</div>
+
+        <a href="settings.php" class="menu-link <?= ($activePage == 'settings') ? 'active' : ''; ?>">
+            <i class="bi bi-gear-fill"></i>
+            <span>System Settings</span>
+        </a>
+
+        <a href="activity_logs.php" class="menu-link <?= ($activePage == 'activity') ? 'active' : ''; ?>">
+            <i class="bi bi-clock-history"></i>
+            <span>Activity Logs</span>
+        </a>
+
+        <a href="account_logs.php" class="menu-link <?= ($activePage == 'accounts') ? 'active' : ''; ?>">
+            <i class="bi bi-shield-lock-fill"></i>
+            <span>Account Logs</span>
+        </a>
+
+        <!-- LOGOUT -->
+        <a href="auth/logout.php" class="menu-link logout">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+        </a>
+
     </div>
-
-    <a href="index.php" class="<?= ($activePage == 'dashboard') ? 'active' : '' ?>">
-        <i class="bi bi-speedometer2"></i> Dashboard
-    </a>
-
-    <a href="pages/projects/project_list.php">
-        <i class="bi bi-folder2-open"></i> Projects
-    </a>
-
-    <a href="pages/clients/client_list.php">
-        <i class="bi bi-people-fill"></i> Clients
-    </a>
-
-    <a href="pages/tasks/task_list.php">
-        <i class="bi bi-check2-square"></i> Tasks
-    </a>
-
-    <a href="pages/billing/invoices.php">
-        <i class="bi bi-receipt-cutoff"></i> Billing
-    </a>
-
-    <a href="pages/tickets/ticket_list.php">
-        <i class="bi bi-life-preserver"></i> Support Tickets
-    </a>
-
-    <a href="pages/hr/">
-        <i class="bi bi-person-badge"></i> HR
-    </a>
-
-    <a href="pages/reports/">
-        <i class="bi bi-bar-chart-line"></i> Reports
-    </a>
-
-    <a href="pages/settings.php">
-        <i class="bi bi-gear-fill"></i> Settings
-    </a>
-
-    <a href="auth/logout.php">
-        <i class="bi bi-box-arrow-right"></i> Logout
-    </a>
 </div>
