@@ -48,14 +48,14 @@ if ($hour >= 5 && $hour < 12) {
 
                 <!-- Profile -->
                 <li>
-                    <a class="dropdown-item d-flex align-items-center gap-2" href="profile.php">
+                    <a class="dropdown-item d-flex align-items-center gap-2" href="profile/profile.php">
                         <i class="bi bi-person"></i> Profile
                     </a>
                 </li>
 
                 <!-- Settings -->
                 <li>
-                    <a class="dropdown-item d-flex align-items-center gap-2" href="settings.php">
+                    <a class="dropdown-item d-flex align-items-center gap-2" href="profile/settings.php">
                         <i class="bi bi-gear"></i> Settings
                     </a>
                 </li>
