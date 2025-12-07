@@ -13,7 +13,7 @@ $activePage = $activePage ?? '';
             <span>Dashboard</span>
         </a>
 
-        <a href="portal.php" class="menu-link <?= ($activePage == 'portal') ? 'active' : ''; ?>">
+        <a href="profile/profile.php" class="menu-link <?= ($activePage == 'portal') ? 'active' : ''; ?>">
             <i class="bi bi-speedometer2"></i>
             <span>My Portal</span>
         </a>
@@ -26,7 +26,7 @@ $activePage = $activePage ?? '';
         <!-- MODULES -->
         <div class="menu-title">MODULES</div>
 
-        <a href="projects/project_list.php" class="menu-link <?= ($activePage == 'projects') ? 'active' : ''; ?>">
+        <a href="pages/projects/project_list.php" class="menu-link <?= ($activePage == 'projects') ? 'active' : ''; ?>">
             <i class="bi bi-kanban-fill"></i>
             <span>Projects</span>
         </a>
@@ -80,7 +80,7 @@ $activePage = $activePage ?? '';
         </a>
 
         <!-- LOGOUT -->
-        <a href="auth/logout.php" class="menu-link logout">
+        <a href="logout.php" class="menu-link logout">
             <i class="bi bi-box-arrow-right"></i>
             <span>Logout</span>
         </a>

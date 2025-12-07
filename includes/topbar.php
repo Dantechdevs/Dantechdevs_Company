@@ -20,7 +20,7 @@ if ($hour >= 5 && $hour < 12) {
 
     <!-- LEFT: Logo + Company Name -->
     <div class="d-flex align-items-center gap-2">
-        <img src="assets/img/logo.png" class="topbar-logo" alt="Logo" style="height:40px;">
+        <img src="assets/img/logo.jpg" class="topbar-logo" alt="Logo" style="height:40px;">
         <span class="fw-bold fs-5">Dantechdevs IT Company</span>
     </div>
 

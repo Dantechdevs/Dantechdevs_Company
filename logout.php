@@ -1,43 +1,15 @@
 <?php
 /*
-================================================================================
+===============================================================================
 File: logout.php
-Purpose: Logout User and Show Confirmation
+Purpose: Logout Page
 Author: Dantechdevs
-Description:
-    - Ends the current session securely
-    - Shows logout confirmation message
-    - Provides button to return to login page
-================================================================================
+Version: v1.0
+===============================================================================
 */
-
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Get username for personalized message before destroying session
-$username = $_SESSION['username'] ?? 'User';
-
-// Unset all session variables
-$_SESSION = [];
-
-// Destroy the session
+session_start();
+session_unset();
 session_destroy();
-
-// Optional: Clear session cookie
-if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params();
-    setcookie(
-        session_name(),
-        '',
-        time() - 42000,
-        $params["path"],
-        $params["domain"],
-        $params["secure"],
-        $params["httponly"]
-    );
-}
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +21,7 @@ if (ini_get("session.use_cookies")) {
     <title>Logged Out | Dantechdevs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
     body {
         background: #f0f2f5;
@@ -60,60 +33,47 @@ if (ini_get("session.use_cookies")) {
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 20px;
     }
 
     .logout-card {
         background: #fff;
-        padding: 50px 35px;
+        padding: 40px 35px;
         border-radius: 15px;
-        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 400px;
         text-align: center;
-        transition: transform 0.3s;
-    }
-
-    .logout-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-    }
-
-    .logout-card i {
-        font-size: 60px;
-        color: #198754;
-        margin-bottom: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        max-width: 450px;
+        width: 100%;
+        animation: fadeIn 0.4s ease-in-out;
     }
 
     .logout-card h3 {
         color: #198754;
-        margin-bottom: 15px;
         font-weight: bold;
-    }
-
-    .logout-card p {
-        color: #6c757d;
-        margin-bottom: 30px;
     }
 
     .btn-login {
         background-color: #198754;
-        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        font-size: 17px;
+        border-radius: 8px;
         font-weight: 600;
-        font-size: 1rem;
-        padding: 12px 0;
-        width: 100%;
-        border-radius: 50px;
-        transition: background 0.3s, transform 0.2s;
     }
 
     .btn-login:hover {
         background-color: #157347;
-        transform: translateY(-2px);
     }
 
-    @media(max-width: 576px) {
-        .logout-card {
-            padding: 35px 20px;
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
         }
     }
     </style>
@@ -123,16 +83,18 @@ if (ini_get("session.use_cookies")) {
 
     <div class="logout-container">
         <div class="logout-card">
-            <i class="bi bi-box-arrow-right"></i>
-            <h3>Goodbye, <?= htmlspecialchars($username) ?>!</h3>
-            <p>You have successfully logged out from Dantechdevs system.</p>
-            <a href="login.php" class="btn btn-login">
-                <i class="bi bi-box-arrow-in-right me-2"></i> Go to Login
+            <i class="bi bi-check-circle-fill" style="font-size: 55px; color: #198754;"></i>
+            <h3 class="mt-3">You Have Logged Out</h3>
+            <p class="text-muted mt-2">
+                Your session has been securely closed.
+            </p>
+
+            <a href="login.php" class="btn btn-login mt-3">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Go to Login
             </a>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

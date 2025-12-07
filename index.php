@@ -7,6 +7,7 @@ include "includes/topbar.php";
 include "includes/sidebar.php";
 include "includes/db.php";
 
+
 // --- Dashboard Counts ---
 $projectsCount = $db->query("SELECT COUNT(*) AS total FROM projects")->fetch_assoc()['total'] ?? 0;
 $clientsCount  = $db->query("SELECT COUNT(*) AS total FROM clients")->fetch_assoc()['total'] ?? 0;
