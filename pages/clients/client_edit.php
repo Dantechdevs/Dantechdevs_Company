@@ -20,12 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $client_name = $db->real_escape_string($_POST['client_name']);
     $email = $db->real_escape_string($_POST['email']);
     $phone = $db->real_escape_string($_POST['phone']);
-    $company = $db->real_escape_string($_POST['company']);
+    $company_name = $db->real_escape_string($_POST['company']); // map form input to DB column
     $address = $db->real_escape_string($_POST['address']);
 
     $updateQuery = "
         UPDATE clients 
-        SET client_name='$client_name', email='$email', phone='$phone', company='$company', address='$address'
+        SET client_name='$client_name', email='$email', phone='$phone', company_name='$company_name', address='$address'
         WHERE id=$id
     ";
 
@@ -45,6 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <title>Edit Client | Dantechdevs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/index.css" rel="stylesheet">
+    <style>
+    /* Push content to the right of sidebar */
+    .main-content {
+        margin-left: 250px;
+        /* adjust to your sidebar width */
+        padding: 20px;
+    }
+    </style>
 </head>
 
 <body>
@@ -74,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="mb-3">
                     <label>Company</label>
                     <input type="text" name="company" class="form-control"
-                        value="<?= htmlspecialchars($client['company']) ?>">
+                        value="<?= htmlspecialchars($client['company_name']) ?>">
                 </div>
                 <div class="mb-3">
                     <label>Address</label>

@@ -8,12 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $client_name = $db->real_escape_string($_POST['client_name']);
     $email = $db->real_escape_string($_POST['email']);
     $phone = $db->real_escape_string($_POST['phone']);
-    $company = $db->real_escape_string($_POST['company']);
+    $company_name = $db->real_escape_string($_POST['company']); // map form input to DB column
     $address = $db->real_escape_string($_POST['address']);
 
     $insertQuery = "
-        INSERT INTO clients (client_name, email, phone, company, address)
-        VALUES ('$client_name', '$email', '$phone', '$company', '$address')
+        INSERT INTO clients (client_name, email, phone, company_name, address)
+        VALUES ('$client_name', '$email', '$phone', '$company_name', '$address')
     ";
 
     if ($db->query($insertQuery)) {
@@ -36,88 +36,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
+    <link href="../../css/index.css" rel="stylesheet">
     <style>
-        /* ===========================
-           ROOT VARIABLES & MAIN CSS
-        =========================== */
-        :root {
-            --brand-green: #16a34a;
-            --brand-green-dark: #128a3b;
-            --muted: #9aa0a6;
-            --card-bg: #ffffff;
-            --page-bg: #f6f8fb;
-            --text-dark: #273544;
-            --border-light: #e5e7eb;
-        }
+    .main-content {
+        margin-left: 260px;
+        /* sidebar width */
+        padding: 1.5rem;
+        min-height: 100vh;
+        background-color: #f6f8fb;
+    }
 
+    .form-container {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 6px 18px rgba(39, 53, 66, 0.06);
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    @media (max-width: 991px) {
         .main-content {
-            margin-left: 260px;
-            padding: 1.5rem;
-            min-height: 100vh;
-            background-color: var(--page-bg);
+            margin-left: 0;
+            padding: 1rem;
         }
-
-        .form-container {
-            background-color: var(--card-bg);
-            padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 6px 18px rgba(39, 53, 66, 0.06);
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        @media (max-width: 991px) {
-            .main-content {
-                margin-left: 0;
-                padding: 1rem;
-            }
-        }
-
-        /* Sidebar CSS reused exactly */
-        .layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar-modern {
-            width: 260px;
-            flex-shrink: 0;
-            background-color: #fff;
-            border-right: 1px solid var(--border-light);
-            padding: 16px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            overflow-y: auto;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .menu-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.5rem;
-            color: #111;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .menu-link.active,
-        .menu-link:hover {
-            background-color: var(--brand-green);
-            color: #fff;
-        }
-
-        .menu-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #555;
-        }
+    }
     </style>
 </head>
 
@@ -131,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form-container">
             <?php if (isset($error)): ?>
-                <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
 
             <form method="POST">
