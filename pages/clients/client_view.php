@@ -1,42 +1,44 @@
 <?php
 $activePage = "clients";
 include "../../includes/db.php";
-include "../../includes/header.php";
-include "../../includes/sidebar.php";
-include "../../includes/topbar.php";
+include "sidebar.php";
 
 if (!isset($_GET['id'])) {
-    echo "<script>alert('Invalid client ID');window.location='client_list.php';</script>";
+    header("Location: client_list.php");
     exit;
 }
 
-$id = $_GET['id'];
-$client = $conn->query("SELECT * FROM clients WHERE id=$id")->fetch_assoc();
+$id = intval($_GET['id']);
+$clientQuery = $db->query("SELECT * FROM clients WHERE id = $id AND deleted = 0");
+if (!$clientQuery || $clientQuery->num_rows == 0) {
+    header("Location: client_list.php?msg=Client not found");
+    exit;
+}
+$client = $clientQuery->fetch_assoc();
 ?>
 
-<div class="content">
+<!doctype html>
+<html lang="en">
 
-    <h3 class="fw-bold mb-4">Client Details</h3>
+<head>
+    <meta charset="utf-8">
+    <title>View Client | Dantechdevs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-    <div class="card-box">
-
-        <h4><?= $client['name']; ?></h4>
-
-        <p><strong>Email:</strong> <?= $client['email']; ?></p>
-        <p><strong>Phone:</strong> <?= $client['phone']; ?></p>
-        <p><strong>Company:</strong> <?= $client['company']; ?></p>
-        <p><strong>Address:</strong> <?= nl2br($client['address']); ?></p>
-
-        <p><strong>Added On:</strong> <?= $client['created_at']; ?></p>
-
-        <a href="client_list.php" class="btn btn-secondary mt-3">Back to Clients</a>
+<body>
+    <div class="main-content">
+        <h2>Client Details</h2>
+        <a href="client_list.php" class="btn btn-secondary btn-sm mb-3">Back</a>
+        <div class="projects-container p-3">
+            <p><strong>Name:</strong> <?= htmlspecialchars($client['client_name']) ?></p>
+            <p><strong>Email:</strong> <?= htmlspecialchars($client['email']) ?></p>
+            <p><strong>Phone:</strong> <?= htmlspecialchars($client['phone']) ?></p>
+            <p><strong>Company:</strong> <?= htmlspecialchars($client['company']) ?></p>
+            <p><strong>Address:</strong> <?= htmlspecialchars($client['address']) ?></p>
+        </div>
     </div>
-
-</div>
-
-<script src="../../assets/js/jquery.min.js"></script>
-<script src="../../assets/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -31,7 +31,7 @@ $activePage = $activePage ?? '';
             <span>Projects</span>
         </a>
 
-        <a href="clients/client_list.php" class="menu-link <?= ($activePage == 'clients') ? 'active' : ''; ?>">
+        <a href="pages/clients/client_list.php" class="menu-link <?= ($activePage == 'clients') ? 'active' : ''; ?>">
             <i class="bi bi-person-badge-fill"></i>
             <span>Clients</span>
         </a>
