@@ -391,3 +391,113 @@ body.dark-mode footer {
     justify-content: center;
     font-weight: 700;
 }
+
+/* ===============================
+   RESPONSIVE FIXES – SMALL SCREENS
+   =============================== */
+
+/* General reset for safety */
+* {
+    box-sizing: border-box;
+}
+
+/* Make images responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Dashboard container */
+.main-content,
+.content,
+.dashboard-content {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Cards grid fix */
+.cards,
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+/* Tables responsiveness */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+/* Sidebar mobile behavior */
+@media (max-width: 992px) {
+
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        width: 260px;
+        height: 100%;
+        background: #1f2933;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 22px;
+        cursor: pointer;
+    }
+}
+
+/* Small mobile phones */
+@media (max-width: 576px) {
+
+    .cards,
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header h1,
+    .header h2 {
+        font-size: 18px;
+    }
+
+    .btn,
+    button {
+        width: 100%;
+    }
+}
+
+/* Forms */
+input,
+select,
+textarea {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Prevent horizontal scroll */
+body {
+    overflow-x: hidden;
+}

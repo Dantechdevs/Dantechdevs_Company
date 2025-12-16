@@ -211,7 +211,9 @@ include "sidebar.php";
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-0">Projects</h2>
             <a href="project_new.php" class="btn btn-success btn-sm">+ New Project</a>
-            <a href="deleted_projects.php" class="btn btn-danger btn-sm">Deleted Projects</a>
+            <a href="project_delete.php" class="btn btn-danger btn-sm">Deleted Projects</a>
+            <button onclick="printProjects()" class="btn btn-secondary btn-sm">
+                <i class="bi bi-printer"></i> Print
         </div>
 
         <?php
@@ -237,33 +239,69 @@ include "sidebar.php";
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if ($projectsQuery && $projectsQuery->num_rows > 0): ?>
-                        <?php while ($project = $projectsQuery->fetch_assoc()): ?>
+                    <?php
+                    // fetch projects list as you do earlier
+                    $projectsQuery = $db->query("
+    SELECT projects.id, projects.project_name, clients.client_name, projects.status, projects.start_date, projects.end_date
+    FROM projects
+    LEFT JOIN clients ON projects.client_id = clients.id
+    ORDER BY projects.id DESC
+");
+
+                    if ($projectsQuery && $projectsQuery->num_rows > 0):
+                        while ($project = $projectsQuery->fetch_assoc()):
+                            // Get invoices for project (sum)
+                            $pid = (int)$project['id'];
+                            $invQ = $db->query("SELECT id, total_amount FROM invoices WHERE project_id = $pid");
+
+                            $projectTotal = 0;
+                            $projectPaid = 0;
+
+                            while ($inv = $invQ->fetch_assoc()) {
+                                $projectTotal += (float)$inv['total_amount'];
+
+                                $invPaid = $db->query(
+                                    "
+                SELECT IFNULL(SUM(amount),0) AS tp 
+                FROM payments 
+                WHERE invoice_id = " . (int)$inv['id']
+                                )->fetch_assoc()['tp'];
+
+                                $projectPaid += (float)$invPaid;
+                            }
+
+                            $balance = $projectTotal - $projectPaid;
+
+                            if ($projectPaid >= $projectTotal && $projectTotal > 0)
+                                $pStatus = 'Paid';
+                            elseif ($projectPaid > 0)
+                                $pStatus = 'Partial';
+                            else
+                                $pStatus = 'Unpaid';
+                    ?>
+
                             <tr>
                                 <td><?= $project['id'] ?></td>
                                 <td><?= htmlspecialchars($project['project_name']) ?></td>
                                 <td><?= htmlspecialchars($project['client_name']) ?></td>
-                                <td>
-                                    <?php $statusClass = 'status-' . strtolower(str_replace(' ', '_', $project['status'])); ?>
-                                    <span
-                                        class="status-badge <?= $statusClass ?>"><?= htmlspecialchars($project['status']) ?></span>
-                                </td>
+                                <td><?= htmlspecialchars($project['status']) ?></td>
                                 <td><?= htmlspecialchars($project['start_date']) ?></td>
                                 <td><?= htmlspecialchars($project['end_date']) ?></td>
+
+                                <!-- ✅ NEW FINANCIAL COLUMNS -->
+                                <td><?= number_format($projectTotal, 2) ?></td>
+                                <td><?= number_format($projectPaid, 2) ?> (<?= $pStatus ?>)</td>
+
                                 <td>
                                     <a href="project_view.php?id=<?= $project['id'] ?>" class="btn btn-info btn-sm">View</a>
                                     <a href="project_edit.php?id=<?= $project['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
-                                    <a href="project_delete.php?id=<?= $project['id'] ?>"
-                                        class="btn btn-danger btn-sm delete-link">Delete</a>
-                                    class="btn btn-danger btn-sm delete-link">Delete</a>
                                 </td>
                             </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="7" class="text-center">No projects found.</td>
-                        </tr>
-                    <?php endif; ?>
+
+                    <?php
+                        endwhile;
+                    endif;
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -279,6 +317,21 @@ include "sidebar.php";
                 });
             });
         });
+        // Print only the table
+        function printProjects() {
+            var tableContent = document.querySelector('.projects-container').innerHTML;
+            var printWindow = window.open('', '', 'height=600,width=900');
+            printWindow.document.write('<html><head><title>Projects</title>');
+            printWindow.document.write(
+                '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">'
+            );
+            printWindow.document.write('</head><body>');
+            printWindow.document.write('<h3>Projects List</h3>');
+            printWindow.document.write(tableContent);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
     </script>
 </body>
 

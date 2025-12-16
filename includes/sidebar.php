@@ -41,7 +41,7 @@ $activePage = $activePage ?? '';
             <span>Tasks</span>
         </a>
 
-        <a href="billing/invoices.php" class="menu-link <?= ($activePage == 'billing') ? 'active' : ''; ?>">
+        <a href="payments/payment_dashboard.php" class="menu-link <?= ($activePage == 'payments') ? 'active' : ''; ?>">
             <i class="bi bi-receipt"></i>
             <span>Accounting</span>
         </a>
