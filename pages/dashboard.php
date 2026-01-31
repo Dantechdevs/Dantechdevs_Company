@@ -79,7 +79,7 @@ $recentProjects = $db->query("SELECT p.id, p.name, c.name as client, p.status, p
             <canvas id="projectsChart" height="80"></canvas>
 
             <?php if (empty($clients)) : ?>
-            <p class="text-muted mt-3">No project data available yet.</p>
+                <p class="text-muted mt-3">No project data available yet.</p>
             <?php endif; ?>
         </div>
 
@@ -137,6 +137,33 @@ $recentProjects = $db->query("SELECT p.id, p.name, c.name as client, p.status, p
 
     </div>
 </div>
+<script>
+    const sidebar = document.querySelector('.sidebar-modern');
+    const toggleBtn = document.getElementById('sidebarToggle');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    toggleBtn?.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+        document.body.classList.toggle('sidebar-open');
+    });
+
+    overlay?.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.classList.remove('sidebar-open');
+    });
+
+    document.querySelectorAll('.sidebar-modern .menu-link').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.classList.remove('sidebar-open');
+            }
+        });
+    });
+</script>
 
 
 <!-- Footer -->
@@ -146,34 +173,34 @@ $recentProjects = $db->query("SELECT p.id, p.name, c.name as client, p.status, p
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-var ctx = document.getElementById('projectsChart').getContext('2d');
-var projectsChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: <?= json_encode($clients) ?>,
-        datasets: [{
-            label: 'Projects per Client',
-            data: <?= json_encode($projectCounts) ?>,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: false
-            }
+    var ctx = document.getElementById('projectsChart').getContext('2d');
+    var projectsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?= json_encode($clients) ?>,
+            datasets: [{
+                label: 'Projects per Client',
+                data: <?= json_encode($projectCounts) ?>,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
         },
-        scales: {
-            y: {
-                beginAtZero: true,
-                stepSize: 1
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stepSize: 1
+                }
             }
         }
-    }
-});
+    });
 </script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
