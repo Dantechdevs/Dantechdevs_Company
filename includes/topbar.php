@@ -1,4 +1,23 @@
 <?php
+// Set Nairobi timezone
+$tz = new DateTimeZone('Africa/Nairobi');
+$now = new DateTime('now', $tz);
+$hour = (int) $now->format('H'); // 0-23
+
+// Determine greeting based on Kenyan time
+if ($hour >= 5 && $hour < 12) {
+    $greeting = "Good morning";
+} elseif ($hour >= 12 && $hour < 17) {
+    $greeting = "Good afternoon";
+} elseif ($hour >= 17 && $hour < 21) {
+    $greeting = "Good evening";
+} else {
+    $greeting = "Good night";
+}
+
+echo $greeting;
+?>
+<?php
 // Set timezone
 date_default_timezone_set('Africa/Nairobi');
 

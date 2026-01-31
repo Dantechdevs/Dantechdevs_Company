@@ -34,17 +34,20 @@ body {
 }
 
 /* ===========================
-   SIDEBAR (FIXED)
+   SIDEBAR
 =========================== */
 .sidebar-modern {
     position: fixed;
-    inset: 0 auto 0 0;
+    top: 0;
+    left: 0;
     width: var(--sidebar-width);
+    min-height: 100vh;
     background: #ffffff;
     border-right: 1px solid var(--border-light);
     padding: 16px;
     overflow-y: auto;
-    z-index: 1000;
+    z-index: 1050;
+    transition: transform 0.3s ease;
 }
 
 /* Smooth sidebar scroll */
@@ -123,6 +126,19 @@ body {
 }
 
 /* ===========================
+   OVERLAY
+=========================== */
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 1040;
+}
+
+/* ===========================
    TOPBAR
 =========================== */
 .topbar-clean {
@@ -134,7 +150,6 @@ body {
     background: #ffffff;
     border-bottom: 1px solid var(--border-light);
     z-index: 900;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -165,13 +180,13 @@ body {
 }
 
 /* ===========================
-   MAIN CONTENT (FIXED)
+   MAIN CONTENT
 =========================== */
 .main-content {
     margin-left: var(--sidebar-width);
     padding: 24px;
     min-height: 100vh;
-    /* FIXED */
+    transition: margin-left 0.3s ease;
 }
 
 /* ===========================
@@ -227,11 +242,21 @@ footer {
 }
 
 /* ===========================
-   RESPONSIVE
+   RESPONSIVE (MOBILE)
 =========================== */
-@media (max-width: 991px) {
+@media (max-width: 768px) {
+
     .sidebar-modern {
-        display: none;
+        transform: translateX(-100%);
+    }
+
+    .sidebar-modern.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
     }
 
     .topbar-clean,
@@ -243,6 +268,26 @@ footer {
     .main-content {
         padding: 16px;
     }
+
+    body.sidebar-open {
+        overflow: hidden;
+    }
+
+    .menu-link {
+        padding: 14px 18px;
+        font-size: 15px;
+    }
+}
+
+/* ===========================
+   HAMBURGER BUTTON
+=========================== */
+.sidebar-toggle {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #333;
 }
 
 /* ===========================
@@ -273,86 +318,4 @@ body.dark-mode .menu-link:hover {
 
 body.dark-mode .table tbody tr:hover {
     background: #020617;
-}
-
-/* Sidebar base */
-.sidebar-modern {
-    width: 260px;
-    min-height: 100vh;
-    background: #ffffff;
-    border-right: 1px solid #e5e7eb;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1050;
-    transition: transform 0.3s ease;
-}
-
-/* Content wrapper (adjust if needed) */
-.main-content {
-    margin-left: 260px;
-    transition: margin-left 0.3s ease;
-}
-
-/* Overlay behind sidebar */
-.sidebar-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-    z-index: 1040;
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
-
-    /* Hide sidebar off-screen */
-    .sidebar-modern {
-        transform: translateX(-100%);
-    }
-
-    /* Show sidebar when open */
-    .sidebar-modern.open {
-        transform: translateX(0);
-    }
-
-    /* Show overlay when active */
-    .sidebar-overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    /* Remove left margin for main content */
-    .main-content {
-        margin-left: 0;
-    }
-
-    /* Disable body scroll when sidebar open */
-    body.sidebar-open {
-        overflow: hidden;
-    }
-
-    /* Make sidebar links bigger for touch */
-    .menu-link {
-        padding: 14px 18px;
-        font-size: 15px;
-    }
-}
-
-/* Hamburger toggle button */
-.sidebar-toggle {
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: #333;
-}
-
-/* Active menu highlight */
-.menu-link.active {
-    background: #e8f5ee;
-    color: #198754;
-    font-weight: 600;
 }
