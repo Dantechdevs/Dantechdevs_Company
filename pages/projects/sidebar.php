@@ -62,7 +62,7 @@ $activePage = basename($_SERVER['PHP_SELF']);
         </a>
 
         <!-- ✅ FIXED: Deleted Projects -->
-        <a href="deleted_projects.php" class="menu-link <?= ($activePage == 'deleted_projects.php') ? 'active' : ''; ?>">
+        <a href="project_delete.php" class="menu-link <?= ($activePage == 'project_delete.php') ? 'active' : ''; ?>">
             <i class="bi bi-trash-fill"></i> Deleted Projects
         </a>
 
