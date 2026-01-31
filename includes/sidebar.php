@@ -3,6 +3,12 @@
 $activePage = $activePage ?? '';
 ?>
 
+<!-- MOBILE TOGGLE BUTTON - place this in your top navbar/header -->
+<button id="sidebarToggle" class="sidebar-toggle d-md-none" aria-label="Toggle sidebar">
+    <i class="bi bi-list"></i>
+</button>
+
+<!-- SIDEBAR -->
 <div class="sidebar-modern">
 
     <div class="sidebar-menu">
@@ -87,3 +93,4 @@ $activePage = $activePage ?? '';
 
     </div>
 </div>
+<!-- END SIDEBAR -->

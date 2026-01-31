@@ -274,3 +274,85 @@ body.dark-mode .menu-link:hover {
 body.dark-mode .table tbody tr:hover {
     background: #020617;
 }
+
+/* Sidebar base */
+.sidebar-modern {
+    width: 260px;
+    min-height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    transition: transform 0.3s ease;
+}
+
+/* Content wrapper (adjust if needed) */
+.main-content {
+    margin-left: 260px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Overlay behind sidebar */
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 1040;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+
+    /* Hide sidebar off-screen */
+    .sidebar-modern {
+        transform: translateX(-100%);
+    }
+
+    /* Show sidebar when open */
+    .sidebar-modern.open {
+        transform: translateX(0);
+    }
+
+    /* Show overlay when active */
+    .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Remove left margin for main content */
+    .main-content {
+        margin-left: 0;
+    }
+
+    /* Disable body scroll when sidebar open */
+    body.sidebar-open {
+        overflow: hidden;
+    }
+
+    /* Make sidebar links bigger for touch */
+    .menu-link {
+        padding: 14px 18px;
+        font-size: 15px;
+    }
+}
+
+/* Hamburger toggle button */
+.sidebar-toggle {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Active menu highlight */
+.menu-link.active {
+    background: #e8f5ee;
+    color: #198754;
+    font-weight: 600;
+}
