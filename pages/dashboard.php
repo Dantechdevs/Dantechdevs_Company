@@ -1,6 +1,7 @@
 <?php
 $activePage = "dashboard";
-include "includes/header.php"; // Your header with CSS links, Bootstrap, etc.
+include "includes/header.php"; // Your header with CSS links, Bootstrap, etc
+require_once "login.php"; // Database connection and session start
 
 // --- FETCH DYNAMIC COUNTS ---
 $projectsCount = $db->query("SELECT COUNT(*) as total FROM projects")->fetch_assoc()['total'] ?? 0;
